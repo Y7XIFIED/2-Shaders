@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Shader 1</title>
+   <link rel="icon" href="../favicon.png" type="image/png">
+
+   <!-- Connected Styles -->
+   <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+   <!-- ===== HTML ===== -->
+   <div  class="index">
+      <div class="text">Y7XIFIED</div>
+      <div class="waves" id="waves" style="background-color: rgba(255, 255, 255, 0.2);">
+         <canvas class="waves-canvas" id="wavesCanvas"></canvas>
+      </div>
+   </div>
+   <div class="theme-switcher">
+      <div class="slider-pill"></div>
+      <button class="theme-btn active" data-theme="theme1">Amethyst</button>
+      <button class="theme-btn" data-theme="theme2">Emerald</button>
+      <button class="theme-btn" data-theme="theme3">Crimson</button>
+      <button class="theme-btn" data-theme="theme4">Sapphire</button>
+      <button class="theme-btn" data-theme="theme5">Amber</button>
+      <button class="theme-btn" data-theme="theme6">Obsidian</button>
+   </div>
+
+   <script src="script.js"></script>
+   <script>
+      const themes = {
+         theme1: {
+            css: {
+               '--bg-grad-1': 'rgba(106, 13, 173, 0.4)',
+               '--bg-grad-1-trans': 'rgba(106, 13, 173, 0)',
+               '--bg-grad-2': 'rgba(48, 25, 52, 0.6)',
+               '--bg-grad-2-trans': 'rgba(48, 25, 52, 0)',
+               '--bg-solid-1': '#11001a',
+               '--bg-solid-2': '#08000d'
+            },
+            shader1: { lineColor: '#8a2be2' }
+         },
+         theme2: {
+            css: {
+               '--bg-grad-1': 'rgba(0, 153, 76, 0.4)',
+               '--bg-grad-1-trans': 'rgba(0, 153, 76, 0)',
+               '--bg-grad-2': 'rgba(0, 51, 25, 0.6)',
+               '--bg-grad-2-trans': 'rgba(0, 51, 25, 0)',
+               '--bg-solid-1': '#001a0d',
+               '--bg-solid-2': '#000d06'
+            },
+            shader1: { lineColor: '#00ff7f' }
+         },
+         theme3: {
+            css: {
+               '--bg-grad-1': 'rgba(220, 20, 60, 0.4)',
+               '--bg-grad-1-trans': 'rgba(220, 20, 60, 0)',
+               '--bg-grad-2': 'rgba(139, 0, 0, 0.6)',
+               '--bg-grad-2-trans': 'rgba(139, 0, 0, 0)',
+               '--bg-solid-1': '#1a0005',
+               '--bg-solid-2': '#0d0002'
+            },
+            shader1: { lineColor: '#dc143c' }
+         },
+         theme4: {
+            css: {
+               '--bg-grad-1': 'rgba(0, 85, 255, 0.4)',
+               '--bg-grad-1-trans': 'rgba(0, 85, 255, 0)',
+               '--bg-grad-2': 'rgba(0, 26, 102, 0.6)',
+               '--bg-grad-2-trans': 'rgba(0, 26, 102, 0)',
+               '--bg-solid-1': '#00081a',
+               '--bg-solid-2': '#00040d'
+            },
+            shader1: { lineColor: '#1e90ff' }
+         },
+         theme5: {
+            css: {
+               '--bg-grad-1': 'rgba(255, 140, 0, 0.4)',
+               '--bg-grad-1-trans': 'rgba(255, 140, 0, 0)',
+               '--bg-grad-2': 'rgba(184, 100, 0, 0.6)',
+               '--bg-grad-2-trans': 'rgba(184, 100, 0, 0)',
+               '--bg-solid-1': '#1a0f00',
+               '--bg-solid-2': '#0d0700'
+            },
+            shader1: { lineColor: '#ff8c00' }
+         },
+         theme6: {
+            css: {
+               '--bg-grad-1': 'rgba(0, 255, 255, 0.25)',
+               '--bg-grad-1-trans': 'rgba(0, 255, 255, 0)',
+               '--bg-grad-2': 'rgba(255, 0, 128, 0.25)',
+               '--bg-grad-2-trans': 'rgba(255, 0, 128, 0)',
+               '--bg-solid-1': '#0a0a0f',
+               '--bg-solid-2': '#050508'
+            },
+            shader1: { lineColor: '#00ffff' }
+         }
+      };
+
+      function updatePill(btn) {
+         const pill = document.querySelector('.slider-pill');
+         if (pill && btn) {
+            pill.style.width = btn.offsetWidth + 'px';
+            pill.style.height = btn.offsetHeight + 'px';
+            pill.style.left = btn.offsetLeft + 'px';
+            pill.style.top = btn.offsetTop + 'px';
+         }
+      }
+
+      const themeSwitcher = document.querySelector('.theme-switcher');
+      let isDragging = false;
+
+      themeSwitcher.addEventListener('mousedown', () => isDragging = true);
+      window.addEventListener('mouseup', () => isDragging = false);
+
+      themeSwitcher.addEventListener('mouseleave', () => {
+         const activeBtn = document.querySelector('.theme-btn.active');
+         if (activeBtn) updatePill(activeBtn);
+      });
+
+      document.querySelectorAll('.theme-btn').forEach(btn => {
+         btn.addEventListener('mouseenter', (e) => {
+            updatePill(e.currentTarget);
+            if (isDragging) e.currentTarget.click();
+         });
+
+         btn.addEventListener('click', (e) => {
+            document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+            const currentBtn = e.currentTarget;
+            currentBtn.classList.add('active');
+            updatePill(currentBtn);
+            
+            const themeKey = currentBtn.getAttribute('data-theme');
+            const theme = themes[themeKey];
+            
+            for (const [key, value] of Object.entries(theme.css)) {
+               document.documentElement.style.setProperty(key, value);
+            }
+            
+            if (window.Waves) {
+               window.Waves.set(theme.shader1);
+            }
+         });
+      });
+
+      // Keyboard navigation
+      window.addEventListener('keydown', (e) => {
+         if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+            const buttons = Array.from(document.querySelectorAll('.theme-btn'));
+            const currentIndex = buttons.findIndex(btn => btn.classList.contains('active'));
+            if (currentIndex !== -1) {
+               let nextIndex = e.key === 'ArrowLeft' ? currentIndex - 1 : currentIndex + 1;
+               if (nextIndex < 0) nextIndex = buttons.length - 1;
+               if (nextIndex >= buttons.length) nextIndex = 0;
+               buttons[nextIndex].click();
+            }
+         }
+      });
+
+      // Set initial
+      for (const [key, value] of Object.entries(themes.theme1.css)) {
+         document.documentElement.style.setProperty(key, value);
+      }
+      setTimeout(() => { 
+         if (window.Waves) window.Waves.set(themes.theme1.shader1);
+         const activeBtn = document.querySelector('.theme-btn.active');
+         if (activeBtn) updatePill(activeBtn);
+      }, 100);
+   </script>
+</body>
+</html>

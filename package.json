@@ -1,0 +1,11 @@
+{
+  "name": "shaders",
+  "version": "1.0.0",
+  "description": "Shaders project",
+  "scripts": {
+    "dev": "vite"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  }
+}

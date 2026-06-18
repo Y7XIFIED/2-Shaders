@@ -1,0 +1,130 @@
+@font-face {
+  font-family: "Nasalization";
+  src: url("../fonts/Nasalization%20Rg.otf") format("opentype");
+}
+
+* {
+	padding: 0rem;
+	margin: 0rem;
+	border: 0rem;
+}
+
+body {
+  min-width: 20rem;
+  color: #000;
+  font-family: "Nasalization", sans-serif;
+  font-size: 1rem;
+}
+
+:root {
+  --bg-grad-1: rgba(51, 199, 255, 0.18);
+  --bg-grad-1-trans: rgba(51, 199, 255, 0);
+  --bg-grad-2: rgba(0, 120, 255, 0.14);
+  --bg-grad-2-trans: rgba(0, 120, 255, 0);
+  --bg-solid-1: #030615;
+  --bg-solid-2: #040b1f;
+}
+
+.index {
+  width: 100%;
+  min-height: 100dvh;
+  background: radial-gradient(75rem 50rem at 50% 45%, var(--bg-grad-1), var(--bg-grad-1-trans) 60%), radial-gradient(56.25rem 43.75rem at 55% 55%, var(--bg-grad-2), var(--bg-grad-2-trans) 62%), linear-gradient(180deg, var(--bg-solid-1), var(--bg-solid-2));
+  transition: background 0.5s ease;
+}
+
+/* Theme Switcher Widget */
+.theme-switcher {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 0.5rem;
+  border-radius: 2rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  z-index: 1000;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.5);
+  color: white;
+}
+.theme-switcher h3 {
+  display: none;
+}
+.theme-btn {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  border: 1px solid transparent;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: inherit;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.theme-btn:hover {
+  color: rgba(255, 255, 255, 1);
+}
+.theme-btn.active {
+  color: white;
+}
+
+.slider-pill {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  z-index: 0;
+  pointer-events: none;
+  box-shadow: inset 0 0 10px rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.waves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.waves::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #160000;
+  border-radius: 50%;
+  transform: translate3d(calc(var(--x, 50%) - 50%), calc(var(--y, 50%) - 50%), 0);
+  will-change: transform;
+}
+
+.waves-canvas {
+  display: block;
+  width: 100%;
+  min-height: 100dvh;
+}
+
+.text {
+  font-size: 4.125rem;
+  font-weight: 800;
+  color: white;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+}
