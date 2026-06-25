@@ -14,10 +14,10 @@ Experience the fully interactive website live here: https://shaderoneeyyy.vercel
 
 ### Shader 1 (Interactive Waves)
 A smooth, interactive wave animation that reacts to your cursor. Switch between different gemstone themes seamlessly!
-https://github.com/Y7XIFIED/2-shaders/raw/master/shader1_60fps.mp4
+![Shader 1 Demo](shader1.gif)
 
 ### Shader 2 (Gradient Blinds)
 A stylish gradient blinds effect that follows your mouse movements, complete with an elegant dark mode palette.
-https://github.com/Y7XIFIED/2-shaders/raw/master/shader2_60fps.mp4
+![Shader 2 Demo](shader2.gif)
 
 <div align="center"><p>Y7XIFIED</p></div>
