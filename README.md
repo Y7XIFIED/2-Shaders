@@ -1,4 +1,4 @@
-<h3 align="center"><b>2 SHADERS</b></h3>
+<h3 align="center"><b>2 Shaders</b></h3>
 
 <p align="center"><img src="https://skillicons.dev/icons?i=html,css,js,vite" /></p>
 
